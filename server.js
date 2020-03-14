@@ -21,10 +21,14 @@ app.get('/version', (req, res) => {
 })
 
 app.post('/contact', (req, res) => {
-    let { name, email, anfrage, text } = req.body
+    let { name, email, anfrage, beschreibungstext } = req.body
     console.log('req.body:', req.body)
     const subject = anfrage
-    if (!text) text = 'Text nicht angegeben.'
+    if (beschreibungstext) { 
+        text = beschreibungstext
+    } else {
+        text = anfrage
+    }
 
     sendMail(email, name, subject, text, (err, data) => {
         if (err) {
@@ -32,7 +36,6 @@ app.post('/contact', (req, res) => {
             res.status(500).json({ success: false, message: 'Error sending message.', err })
         }
         else {
-            console.log('data:', data)
             res.json({ success: true, message: 'Your message has been sent.' })
         }
     })

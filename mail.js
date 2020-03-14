@@ -12,7 +12,6 @@ const auth = {
 const transporter = nodemailer.createTransport(mailGun(auth))
 
 const sendMail = (email, name, subject, text, cb) => {
-    console.log('subject:', subject)
     const mailOptions = {
         from: email,
         to: process.env.RECEIVER,
