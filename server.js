@@ -20,7 +20,7 @@ mongoose.connect(mongoUrl, {
     }
 });
 
-const CustomerSchema = new mongoose.Schema({
+const UserSchema = new mongoose.Schema({
     anrede: { type: String, required: true },
     name: { type: String, required: true },
     email: { type: String, required: true },
@@ -29,7 +29,7 @@ const CustomerSchema = new mongoose.Schema({
     // datenschutz: { type: Boolean, required: true }
 })
 
-const Customer = mongoose.model('Customer', CustomerSchema);
+const User = mongoose.model('User', UserSchema);
 
 app.use(express.json())
 
@@ -44,13 +44,13 @@ app.get('/version', (req, res) => {
     res.json({ message: 'form version 1' })
 })
 
-app.get('/customers', async (req, res) => {
+app.get('/users', async (req, res) => {
     try {
-        const customers = await Customer.find()
-        res.send(customers)
+        const users = await User.find()
+        res.send(users)
     } catch (err) {
         console.log(err)
-        res.status(500).json({ message: 'Error getting customers', err })
+        res.status(500).json({ message: 'Error getting users', err })
     }
 })
 
@@ -66,29 +66,30 @@ app.post('/contact', async (req, res) => {
 
     sendMail(email, name, subject, text, (err, data) => {
         if (err) {
-            console.log('err:', err)
-            res.status(500).json({ success: false, message: 'Error sending message.', err })
+            console.log('Error sending email.', err)
+            res.status(500).json({ success: false, message: 'Error sending email.', err })
         }
         else {
-            res.json({ success: true, message: 'Your message has been sent.' })
+            console.log('Your email has been sent.')
+            res.json({ success: true, message: 'Your email has been sent.' })
         }
     })
 
-    const customer = new Customer(req.body)
+    const user = new User(req.body)
     try {
-        await customer.save()
-        res.json({ success: true, message: 'Customer created' })
+        await user.save()
+        res.json({ success: true, message: 'User created' })
     } catch (err) {
         console.log(err)
-        res.status(500).json({ success: false, message: 'Error creating customer', err })
+        res.status(500).json({ success: false, message: 'Error creating user', err })
     }
 })
 
-// app.get('/drop', (req, res) => {
-//     Customer.collection.drop()
-//         .then(() => res.send({ message: 'Collection dropped' }))
-//         .catch(err => res.send(err))
-// })
+app.get('/drop', (req, res) => {
+    User.collection.drop()
+        .then(() => res.send({ message: 'User collection dropped' }))
+        .catch(err => res.send(err))
+})
 
 // // ERROR HANDLER
 // app.use((err, req, res, next) => {
