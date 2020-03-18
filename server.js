@@ -70,7 +70,7 @@ const createUser = async (req, res) => {
     }
 }
 
-app.post('/contact', validation, (req, res) => {
+app.post('/user', validation, (req, res) => {
     const errors = validationResult(req)
     if (!errors.isEmpty()) {
         return res.status(422).json({ errors: errors.array() });
