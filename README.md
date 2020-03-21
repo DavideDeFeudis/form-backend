@@ -1,7 +1,9 @@
-<h1 align="center">Form</h1>
+# Form
 
 ## Basic Overview
 
+Form in German language created with React.js, Node.js and MongoDB.  
+This app uses create-react-app and depends on this [frontend project](https://github.com/DavideDeFeudis/form-frontend).  
 
 ## Installation
 
@@ -20,11 +22,15 @@ $ npm start
 Add .env file to the project:
 
 ```bash
+MONGO=<VALUE>
+CORS_ORIGIN=<VALUE>
+```
+
+Mailgun:
+```bash
 API_KEY=<VALUE>
 DOMAIN=<VALUE>
 RECEIVER=<VALUE>
-MONGO=<VALUE>
-CORS_ORIGIN=<VALUE>
 ```
 
 ## License
