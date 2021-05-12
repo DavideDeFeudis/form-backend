@@ -15,7 +15,7 @@
     "express": "^4.17.1",
     "express-validator": "^6.4.0",
     "mongoose": "^5.9.4",
-    "nodemailer": "^6.4.5",
+    "nodemailer": "^6.4.16",
     "nodemailer-mailgun-transport": "^2.0.0"
   }
 }
